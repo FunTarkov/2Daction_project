@@ -951,7 +951,7 @@ GameObject:
   - component: {fileID: 1524273905}
   - component: {fileID: 1524273904}
   m_Layer: 0
-  m_Name: Square (moving)
+  m_Name: Square (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
