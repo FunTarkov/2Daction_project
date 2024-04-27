@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float airAratio=0.3f;
     public LayerMask groundLayer;
     public float jumpPower=10;
     public float accelPower=300;
 
     //ˆê•bŠÔ‚Éˆê’è‚Ì‰ñ”ŒÄ‚Î‚ê‚é
     void FixedUpdate()
-    {
+    { 
         // “ü—Í‚ğx‚É‘ã“ü
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -19,9 +20,15 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         //x²‚É‰Á‚í‚é—Í‚ğŠi”[
         Vector2 forceX = new Vector2(horizontalInput * accelPower * Time.deltaTime, 0);
-        if (isGrounded()) {
+        if (isGrounded()) 
+        {
             //Rigidbody2D‚É—Í‚ğ‰Á‚¦‚é
-            rb.AddForce(forceX); }
+            rb.AddForce(forceX);
+        }
+        else
+        {
+            rb.AddForce(forceX*airAratio);
+        }
      
         
             if (verticalInput > 0&& isGrounded  () )
@@ -32,7 +39,7 @@ public class PlayerController : MonoBehaviour
             }
 
             else
-            {
+            { 
           
             }
         
@@ -42,13 +49,13 @@ public class PlayerController : MonoBehaviour
     }
     private bool isGrounded()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.25f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.35f, groundLayer);
         return hit.collider != null;
     }
     //‚¿‚á‚ñ‚Æray‚ªo‚Ä‚é‚©‚İ‚é‚â‚Â
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, new Vector3(0, -1.25f, 0));
+        Gizmos.DrawRay(transform.position, new Vector3(0, -1.35f, 0));
     }
 }
